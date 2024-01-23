@@ -36,20 +36,26 @@ const Display = () => {
       ) : (
         tasks.map((todo) => {
           return (
-            <div>
-              <div onClick={() => handleCheckbox(todo.id, todo.done)}>
+            <div className="display-card">
+              <div
+                className="icon"
+                onClick={() => handleCheckbox(todo.id, todo.done)}
+              >
                 {todo.done ? (
-                  <ion-icon name="radio-button-on-outline"></ion-icon>
+                  <ion-icon name="radio-button-on" id="radio"></ion-icon>
                 ) : (
-                  <ion-icon name="radio-button-off-outline"></ion-icon>
+                  <ion-icon name="radio-button-off" id="radio"></ion-icon>
                 )}
+              </div>
+              <div className="records">
                 <span className={todo.done ? "strike" : ""}>{todo.task}</span>
+                <span className="separator">|</span>
                 <ion-icon
-                  name="trash-outline"
+                  name="trash"
+                  id="trash"
                   onClick={() => handleDelete(todo.id)}
                 ></ion-icon>
               </div>
-              <div></div>
             </div>
           );
         })
