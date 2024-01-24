@@ -6,18 +6,33 @@ import cors from "cors";
 const app = express();
 const port = process.env.PORT;
 const db = new pg.Client({
-  user: process.env.USER,
-  host: process.env.HOST,
-  database: process.env.DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  //   user: process.env.USER,
+  //   host: process.env.HOST,
+  //   database: process.env.DATABASE,
+  //   password: process.env.DB_PASSWORD,
+  //   port: process.env.DB_PORT,
+  connectionString: process.env.EXTRENAL_DB_URL,
+  ssl: { rejectUnauthorized: false },
 });
 db.connect();
+
+const createTable = async () => {
+  await db.query(
+    "CREATE TABLE IF NOT EXISTS LIST( id serial primary key, task text NOT NULL, done boolean default false);",
+    (err, res) => {
+      if (err) console.error("Error execution of query failed", err.stack);
+      else {
+        console.log("Table Created Successfully");
+      }
+    }
+  );
+};
 
 app.use(cors());
 app.use(express.json());
 
 app.get("/", async (req, res) => {
+  createTable();
   const result = await db.query("SELECT * FROM LIST", (err, response) => {
     if (err) console.error("Error execujting query", err.stack);
     else {
