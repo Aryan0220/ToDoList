@@ -5,9 +5,12 @@ const Create = () => {
   const [task, setTask] = useState([]);
   const handleClick = async () => {
     try {
-      const result = await axios.post("http://localhost:8000/add", {
-        task: task,
-      });
+      const result = await axios.post(
+        "https://todo-list-wgfe.onrender.com/add",
+        {
+          task: task,
+        }
+      );
       window.location.reload();
     } catch (err) {
       console.error(err);

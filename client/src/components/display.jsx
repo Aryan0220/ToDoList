@@ -4,7 +4,7 @@ import axios from "axios";
 const Display = () => {
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8000/")
+    fetch("https://todo-list-wgfe.onrender.com/")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -15,14 +15,14 @@ const Display = () => {
 
   const handleCheckbox = async (id, done) => {
     await axios
-      .patch("http://localhost:8000/update/" + id + "/" + done)
+      .patch("https://todo-list-wgfe.onrender.com/update/" + id + "/" + done)
       .then((res) => window.location.reload())
       .catch((err) => console.error(err));
   };
 
   const handleDelete = async (id) => {
     await axios
-      .delete("http://localhost:8000/delete/" + id)
+      .delete("https://todo-list-wgfe.onrender.com/delete/" + id)
       .then((res) => window.location.reload())
       .catch((err) => console.error(err));
   };

@@ -6,11 +6,6 @@ import cors from "cors";
 const app = express();
 const port = process.env.PORT;
 const db = new pg.Client({
-  //   user: process.env.USER,
-  //   host: process.env.HOST,
-  //   database: process.env.DATABASE,
-  //   password: process.env.DB_PASSWORD,
-  //   port: process.env.DB_PORT,
   connectionString: process.env.EXTRENAL_DB_URL,
   ssl: { rejectUnauthorized: false },
 });
