@@ -4,17 +4,12 @@ import axios from "axios";
 const Create = () => {
   const [task, setTask] = useState([]);
   const handleClick = async () => {
-    try {
-      const result = await axios.post(
-        "https://todo-list-wgfe.onrender.com/add",
-        {
-          task: task,
-        }
-      );
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-    }
+    await axios
+      .post("https://todo-list-wgfe.onrender.com/add", {
+        task: task,
+      })
+      .then(() => window.location.reload())
+      .catch((err) => console.error(err));
   };
   return (
     <div className="create-form">

@@ -7,36 +7,40 @@ const Display = () => {
     fetch("https://todo-list-wgfe.onrender.com/")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setTasks(data);
       })
       .catch((err) => console.error(err));
   }, []);
-
+  const Reload = async () => {
+    fetch("https://todo-list-wgfe.onrender.com/")
+      .then((res) => res.json())
+      .then((data) => {
+        setTasks(data);
+      })
+      .catch((err) => console.error(err));
+  };
   const handleCheckbox = async (id, done) => {
     await axios
       .patch("https://todo-list-wgfe.onrender.com/update/" + id + "/" + done)
-      .then((res) => window.location.reload())
+      .then(() => Reload())
       .catch((err) => console.error(err));
   };
 
   const handleDelete = async (id) => {
     await axios
       .delete("https://todo-list-wgfe.onrender.com/delete/" + id)
-      .then((res) => window.location.reload())
+      .then(() => Reload())
       .catch((err) => console.error(err));
   };
 
   return (
     <div className="display-task">
       {tasks.length === 0 ? (
-        <div>
-          <h2>No Records</h2>
-        </div>
+        <div class="loader"></div>
       ) : (
         tasks.map((todo) => {
           return (
-            <div className="display-card">
+            <div key={todo.id} className="display-card">
               <div
                 className="icon"
                 onClick={() => handleCheckbox(todo.id, todo.done)}
