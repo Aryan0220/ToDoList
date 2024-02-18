@@ -64,7 +64,6 @@ app.patch("/update/:id/:done", async (req, res) => {
       if (err) console.error("Error execujting query", err.stack);
       else {
         res.json(response.rows);
-        console.log(response.rows);
       }
     }
   );
